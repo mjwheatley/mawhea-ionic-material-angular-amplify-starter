@@ -1,0 +1,7 @@
+{
+  "name": "mawheadotcom",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
