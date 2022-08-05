@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Test Modal
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+</ion-content>
+
+<ion-footer>
+<!--  <ion-toolbar>-->
+    <ion-row>
+      <ion-col>
+        <ion-button
+          class="ion-margin"
+          size="large"
+          expand="block"
+          (click)="dismiss()"
+        >
+          Done
+        </ion-button>
+      </ion-col>
+    </ion-row>
+<!--  </ion-toolbar>-->
+</ion-footer>

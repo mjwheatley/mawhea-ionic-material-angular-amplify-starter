@@ -1,15 +1,26 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    loadChildren: () => import('./pages/root/root.module').then( m => m.RootPageModule)
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    path: 'home',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
+  },
+  {
+    path: 'account-menu',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/account-menu/account-menu.module').then( m => m.AccountMenuPageModule)
   }
 ];
 
@@ -19,4 +30,5 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

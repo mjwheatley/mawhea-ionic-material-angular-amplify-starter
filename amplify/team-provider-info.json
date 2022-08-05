@@ -1,0 +1,33 @@
+{
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-mawheadotcom-prod-170651-authRole",
+      "UnauthRoleArn": "arn:aws:iam::104492362278:role/amplify-mawheadotcom-prod-170651-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::104492362278:role/amplify-mawheadotcom-prod-170651-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-mawheadotcom-prod-170651-deployment",
+      "UnauthRoleName": "amplify-mawheadotcom-prod-170651-unauthRole",
+      "StackName": "amplify-mawheadotcom-prod-170651",
+      "StackId": "arn:aws:cloudformation:us-east-1:104492362278:stack/amplify-mawheadotcom-prod-170651/bedc6ce0-1441-11ed-9970-0e40f5ee4e7d",
+      "AmplifyAppId": "d38igszm3rces1",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-mawheadotcom-prod-170651-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d38igszm3rces1",
+          "type": "manual"
+        }
+      },
+      "auth": {
+        "mawheadotcomAuth": {}
+      },
+      "function": {
+        "mawheadotcomAuthPostConfirmation": {
+          "deploymentBucketName": "amplify-mawheadotcom-prod-170651-deployment",
+          "s3Key": "amplify-builds/mawheadotcomAuthPostConfirmation-4b363475366b696b6d77-build.zip"
+        }
+      }
+    }
+  }
+}

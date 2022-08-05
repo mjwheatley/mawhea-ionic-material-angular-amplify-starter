@@ -2,26 +2,80 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+        <ion-list id="inbox-list" class="inbox-list ion-margin-bottom">
+          <ion-list-header class="ion-margin-bottom">
+            <ion-menu-toggle
+              style="cursor: pointer;"
+              auto-hide="false"
+              routerDirection="root"
+              routerLinkActive="selected"
+              routerLink="/"
+            >
+              <ion-text>
+                Mawhea
+              </ion-text>
+            </ion-menu-toggle>
+          </ion-list-header>
+
+          <ion-list class="inbox-list ion-margin-bottom">
+            <ion-menu-toggle auto-hide="false" *ngIf="user?.sub">
+              <ion-item
+                routerDirection="root"
+                routerLinkActive="selected"
+                routerLink="/account-menu"
+                lines="full"
+                [button]="true"
+                [detail]="false"
+              >
+                <ion-avatar slot="start" *ngIf="user?.picture">
+                  <img src="{{user.picture}}">
+                </ion-avatar>
+                <ion-icon
+                  *ngIf="!user?.picture"
+                  size="large"
+                  slot="start"
+                  name="person-circle-outline"
+                ></ion-icon>
+                <ion-label class="ion-text-wrap">
+                  {{user.given_name}}&nbsp;{{user.family_name}}
+                  <p>{{user.email}}</p>
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+
+            <div *ngIf="user?.sub">
+              <ion-menu-toggle auto-hide="false">
+                <ion-button
+                  expand="block"
+                  size="medium"
+                  class="ion-margin"
+                  (click)="signOut()"
+                >
+                  <ion-label>Sign Out</ion-label>
+                </ion-button>
+              </ion-menu-toggle>
+            </div>
+          </ion-list>
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
+            <ion-item
+              *ngIf="!p.isHidden"
+              lines="none"
+              routerDirection="root"
+              routerLinkActive="selected"
+              [routerLink]="[p.url]"
+              [detail]="false"
+            >
+              <ion-icon
+                slot="start"
+                [ios]="p.icon + '-outline'"
+                [md]="p.icon"
+              ></ion-icon>
+              <ion-label>{{p.title}}</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
 
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
-
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list>
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
