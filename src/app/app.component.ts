@@ -6,6 +6,7 @@ import { SessionService } from './services';
 import { Subscription } from 'rxjs';
 import { AuthService } from './auth/auth.service';
 import { ICognitoUserAttributes } from './models';
+import { AppComponentUtils, Constants } from './utils';
 
 interface IAppPage {
   title: string;
@@ -20,10 +21,12 @@ interface IAppPage {
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
+  public isDarkMode: boolean;
   public isAuthenticated: boolean;
   public user: ICognitoUserAttributes;
   public appPages: IAppPage[] = [];
   private userSub: Subscription;
+  private darkModeSessionSub: Subscription | undefined;
 
   constructor(
     private modalCtrl: ModalController,
@@ -36,17 +39,30 @@ export class AppComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     await this.subscribeToUser();
     this.updateMenuOptions();
+    const darkModePref = AppComponentUtils.listenForDarkModePref();
+    this.subscribeToDarkModeSession(darkModePref);
+    this.subscribeToDarkModeSession(true);
   }
 
   ngOnDestroy() {
     if (this.userSub) {
       this.userSub.unsubscribe();
     }
+    if (this.darkModeSessionSub) {
+      this.darkModeSessionSub.unsubscribe();
+    }
   }
 
   async signOut() {
     await Auth.signOut();
     this.authService.currentAuthenticatedUser();
+  }
+
+  public async onChangeDarkMode() {
+    await AppComponentUtils.toggleDarkTheme({
+      isDarkMode: this.isDarkMode
+    });
+    await this.session.setPersistent(Constants.SESSION.IS_DARK_MODE, this.isDarkMode);
   }
 
   private updateMenuOptions() {
@@ -85,6 +101,22 @@ export class AppComponent implements OnInit, OnDestroy {
         console.log(`user updated`, user);
         this.user = user;
         this.updateMenuOptions();
+      });
+    });
+  }
+
+  private subscribeToDarkModeSession(darkModePref?: boolean) {
+    this.isDarkMode = this.session.get(Constants.SESSION.IS_DARK_MODE);
+    this.darkModeSessionSub = this.session.getSessionAsObservable().subscribe(async (session) => {
+      await this.zone.run(async () => {
+        this.isDarkMode = session[Constants.SESSION.IS_DARK_MODE];
+        if (this.isDarkMode === undefined) {
+          this.isDarkMode = darkModePref;
+          await this.session.setPersistent(Constants.SESSION.IS_DARK_MODE, this.isDarkMode);
+        }
+        AppComponentUtils.toggleDarkTheme({
+          isDarkMode: this.isDarkMode
+        });
       });
     });
   }

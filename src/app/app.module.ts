@@ -8,6 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { TestModalComponent } from './modals';
 import { AuthService } from './auth/auth.service';
 import { LoadingService, SessionService } from './services';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,8 +18,11 @@ import { LoadingService, SessionService } from './services';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

@@ -17,6 +17,20 @@
             </ion-menu-toggle>
           </ion-list-header>
 
+          <ion-item lines="full">
+            <ion-icon slot="start" name="moon"></ion-icon>
+            <ion-label>
+              Dark Mode
+            </ion-label>
+            <ion-toggle
+              id="themeToggle"
+              slot="end"
+              color="secondary"
+              [(ngModel)]="isDarkMode"
+              (ionChange)="onChangeDarkMode()"
+            ></ion-toggle>
+          </ion-item>
+
           <ion-list class="inbox-list ion-margin-bottom">
             <ion-menu-toggle auto-hide="false" *ngIf="user?.sub">
               <ion-item
