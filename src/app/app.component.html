@@ -12,7 +12,7 @@
               routerLink="/"
             >
               <ion-text>
-                Mawhea
+                {{'appName' | translate}}
               </ion-text>
             </ion-menu-toggle>
           </ion-list-header>
@@ -20,7 +20,7 @@
           <ion-item lines="full">
             <ion-icon slot="start" name="moon"></ion-icon>
             <ion-label>
-              Dark Mode
+              {{'general.darkMode' | translate}}
             </ion-label>
             <ion-toggle
               id="themeToggle"
@@ -65,7 +65,9 @@
                   class="ion-margin"
                   (click)="signOut()"
                 >
-                  <ion-label>Sign Out</ion-label>
+                  <ion-label>
+                    {{'general.signOut' | translate}}
+                  </ion-label>
                 </ion-button>
               </ion-menu-toggle>
             </div>

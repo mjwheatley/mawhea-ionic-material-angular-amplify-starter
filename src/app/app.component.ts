@@ -2,11 +2,12 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Auth } from 'aws-amplify';
-import { SessionService } from './services';
+import { SessionService, TranslateNpmModulesService } from './services';
 import { Subscription } from 'rxjs';
 import { AuthService } from './auth/auth.service';
 import { ICognitoUserAttributes } from './models';
 import { AppComponentUtils, Constants } from './utils';
+import { TranslateService } from '@ngx-translate/core';
 
 interface IAppPage {
   title: string;
@@ -32,11 +33,18 @@ export class AppComponent implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private authService: AuthService,
     private session: SessionService,
-    private zone: NgZone
+    private zone: NgZone,
+    private translate: TranslateService,
+    private translateNpmModulesService: TranslateNpmModulesService
   ) {
   }
 
   async ngOnInit() {
+    AppComponentUtils.initializeTranslateServiceConfig({
+      translateService: this.translate,
+      translateNpmModulesService: this.translateNpmModulesService,
+      translateModules: []
+    });
     await this.subscribeToUser();
     this.updateMenuOptions();
     const darkModePref = AppComponentUtils.listenForDarkModePref();

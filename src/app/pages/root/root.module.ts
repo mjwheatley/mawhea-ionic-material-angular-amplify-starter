@@ -1,20 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
-
 import { RootPageRoutingModule } from './root-routing.module';
-
 import { RootPage } from './root.page';
+import { SharedModule } from '../../shared.module';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
+    SharedModule,
     RootPageRoutingModule
   ],
   declarations: [RootPage]
 })
-export class RootPageModule {}
+export class RootPageModule {
+}

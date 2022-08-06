@@ -30,6 +30,8 @@
     "@capacitor/status-bar": "4.0.1",
     "@ionic/angular": "^6.1.9",
     "@ionic/storage": "^3.0.4",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "aws-amplify": "^4.3.30",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",

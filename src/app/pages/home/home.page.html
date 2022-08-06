@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Home
+      {{'page-home-title' | translate}}
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="openTestModal()">
@@ -18,7 +18,7 @@
   <div class="centered-limited-width ion-text-center">
     <ion-card-header>
       <ion-card-title>
-        Welcome
+        {{'general.welcome' | translate}}
       </ion-card-title>
       <ion-card-title>
         {{user.given_name}}&nbsp;{{user.family_name}}

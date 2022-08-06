@@ -67,7 +67,12 @@
   --ion-color-light-tint: #f5f6f9;
 }
 
-//@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Insert your CSS variable overrides here */
+
+  }
+}
 /*
  * Dark Colors
  * -------------------------------------------
@@ -229,5 +234,3 @@ body.dark {
 ion-item {
   --transition: none;
 }
-
-//}

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
+import { AuthenticatorService } from '@aws-amplify/ui-angular';
 
 @Component({
   selector: 'app-login',
@@ -7,6 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.page.scss']
 })
 export class LoginPage implements OnInit {
+  public signUpAttributes: any = [
+    'birthdate',
+    'email',
+    'family_name',
+    'given_name',
+    'phone_number',
+  ];
   public formFields = {
     signIn: {
       username: {
@@ -44,21 +52,29 @@ export class LoginPage implements OnInit {
         isRequired: true,
         label: 'Last Name'
       },
-      birthdate: {
+      phone_number: {
         order: 4,
         labelHidden: false,
+        isRequired: false,
+        placeholder: 'Enter your phone number',
+        label: 'Phone Number'
+      },
+      birthdate: {
+        order: 5,
+        labelHidden: false,
         isRequired: true,
+        placeholder: 'MM/DD/YYYY',
         label: 'Birthday'
       },
       password: {
-        order: 5,
+        order: 6,
         labelHidden: false,
         placeholder: 'Create your password',
         isRequired: true,
         label: 'Password'
       },
       confirm_password: {
-        order: 6,
+        order: 7,
         labelHidden: false,
         placeholder: 'Confirm your password',
         isRequired: true,
@@ -67,7 +83,20 @@ export class LoginPage implements OnInit {
     }
   };
 
-  constructor() {
+  public services = {
+    validateCustomSignUp: async (formData: Record<string, string>) => {
+      if (!formData.acknowledgement) {
+        return {
+          acknowledgement: 'You must agree to the Terms & Conditions'
+        };
+      }
+    }
+  };
+  public areTermsAccepted: boolean;
+
+  constructor(
+    public authenticator: AuthenticatorService
+  ) {
   }
 
   ngOnInit() {
