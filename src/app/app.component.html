@@ -17,7 +17,7 @@
             </ion-menu-toggle>
           </ion-list-header>
 
-          <ion-item lines="full">
+          <ion-item lines="full" class="ion-margin-bottom">
             <ion-icon slot="start" name="moon"></ion-icon>
             <ion-label>
               {{'general.darkMode' | translate}}
@@ -31,8 +31,8 @@
             ></ion-toggle>
           </ion-item>
 
-          <ion-list class="inbox-list ion-margin-bottom">
-            <ion-menu-toggle auto-hide="false" *ngIf="user?.sub">
+          <ion-list class="inbox-list ion-margin-bottom" *ngIf="user?.sub">
+            <ion-menu-toggle auto-hide="false">
               <ion-item
                 routerDirection="root"
                 routerLinkActive="selected"
@@ -57,20 +57,18 @@
               </ion-item>
             </ion-menu-toggle>
 
-            <div *ngIf="user?.sub">
-              <ion-menu-toggle auto-hide="false">
-                <ion-button
-                  expand="block"
-                  size="medium"
-                  class="ion-margin"
-                  (click)="signOut()"
-                >
-                  <ion-label>
-                    {{'general.signOut' | translate}}
-                  </ion-label>
-                </ion-button>
-              </ion-menu-toggle>
-            </div>
+            <ion-menu-toggle auto-hide="false">
+              <ion-button
+                expand="block"
+                size="medium"
+                class="ion-margin"
+                (click)="signOut()"
+              >
+                <ion-label>
+                  {{'general.signOut' | translate}}
+                </ion-label>
+              </ion-button>
+            </ion-menu-toggle>
           </ion-list>
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">

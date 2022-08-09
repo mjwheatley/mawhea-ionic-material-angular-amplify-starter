@@ -24,32 +24,3 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
-
-@import '~@aws-amplify/ui-angular/theme.css';
-/* Important fix for body min-height to correct issue caused by @aws-amplify/ui-angular/theme.css*/
-body {
-  min-height: 100%;
-}
-@import './theme/md-theme';
-
-.centered-limited-width {
-  max-width: 750px;
-  margin: 16px auto;
-  width: 95%;
-}
-
-.hidden-file-input {
-  visibility: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-ion-item.translucent {
-  --background: translucent;
-  --inner-padding-end: 0;
-}
-
-ion-split-pane {
-  --side-max-width: 300px;
-}

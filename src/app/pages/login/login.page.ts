@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
-import { AuthenticatorService } from '@aws-amplify/ui-angular';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +12,7 @@ export class LoginPage implements OnInit {
     'email',
     'family_name',
     'given_name',
-    'phone_number',
+    'phone_number'
   ];
   public formFields = {
     signIn: {
@@ -94,9 +93,7 @@ export class LoginPage implements OnInit {
   };
   public areTermsAccepted: boolean;
 
-  constructor(
-    public authenticator: AuthenticatorService
-  ) {
+  constructor() {
   }
 
   ngOnInit() {

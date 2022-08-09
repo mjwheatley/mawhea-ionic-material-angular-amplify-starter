@@ -1,41 +1,5 @@
 {
   "appName": "Mawhea",
-  "general": {
-    "ok": "OK",
-    "no": "NO",
-    "yes": "YES",
-    "cancel": "Cancel",
-    "continue": "Continue",
-    "accept": "Accept",
-    "submit": "Submit",
-    "save": "Save",
-    "next": "Next",
-    "done": "Done",
-    "delete": "Delete",
-    "remove": "Remove",
-    "dashboard": "Dashboard",
-    "created": "Created",
-    "refresh": "Refresh",
-    "welcome": "Welcome",
-    "errors": {
-      "accessDenied": "Access Denied",
-      "api": "Communication Error"
-    },
-    "verify": "Verify",
-    "capture": "Capture",
-    "skip": "Skip",
-    "retry": "Retry",
-    "edit": "Edit",
-    "darkMode": "Dark Mode",
-    "alerts": {
-      "exit": {
-        "title": "Exit?",
-        "message": "Are you sure you want to exit this application?"
-      }
-    },
-    "signIn": "Sign In",
-    "signOut": "Sign Out"
-  },
   "page-home": {
     "title": "Home"
   },

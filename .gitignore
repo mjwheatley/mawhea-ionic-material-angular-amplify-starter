@@ -31,6 +31,15 @@ npm-debug.log*
 /plugins
 /www
 
+
+.idea/
+.aws-sam/
+package-lock.json
+yarn.lock
+env/*
+**/*/environments/environment.json
+environments/*.env.sh
+
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*

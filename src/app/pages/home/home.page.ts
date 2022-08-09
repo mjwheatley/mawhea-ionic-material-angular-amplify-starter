@@ -2,9 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { TestModalComponent } from '../../modals';
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { SessionService } from '../../services';
-import { ICognitoUserAttributes } from '../../models';
-import { TranslateService } from '@ngx-translate/core';
+import { ICognitoUserAttributes, SessionService } from '@mawhea/ngx-core';
 
 @Component({
   selector: 'app-home',

@@ -28,9 +28,18 @@
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
+              },{
+                "glob": "**/*",
+                "input": "node_modules/@mawhea/ngx-core/assets",
+                "output": "assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@mawhea/ngx-amplify-auth-ui/assets",
+                "output": "assets"
               }
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
+            "styles": ["src/theme/variables.scss", "src/global.scss", "./node_modules/@mawhea/ngx-core/theme/global.scss"],
             "scripts": [],
             "aot": false,
             "vendorChunk": true,
