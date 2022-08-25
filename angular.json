@@ -37,6 +37,11 @@
                 "glob": "**/*",
                 "input": "node_modules/@mawhea/ngx-amplify-auth-ui/assets",
                 "output": "assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@mawhea/ngx-camera/assets",
+                "output": "assets"
               }
             ],
             "styles": ["src/theme/variables.scss", "src/global.scss", "./node_modules/@mawhea/ngx-core/theme/global.scss"],

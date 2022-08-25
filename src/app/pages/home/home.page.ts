@@ -39,7 +39,5 @@ export class HomePage implements OnInit {
         this.user = user;
       });
     });
-
-
   }
 }

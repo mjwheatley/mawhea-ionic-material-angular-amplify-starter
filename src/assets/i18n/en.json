@@ -1,5 +1,8 @@
 {
   "appName": "Mawhea",
+  "menu": {
+    "signIn": "Sign In"
+  },
   "page-home": {
     "title": "Home"
   },

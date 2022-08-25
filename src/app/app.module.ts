@@ -32,7 +32,11 @@ import { AppModule as NgxCoreAppModule, createTranslateLoader, TranslateNpmModul
     {
       provide: RouteReuseStrategy,
       useClass: IonicRouteStrategy
-    }
+    },
+    // {
+    //   provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+    //   useValue: { appearance: 'outline' }
+    // }
   ],
   bootstrap: [AppComponent]
 })

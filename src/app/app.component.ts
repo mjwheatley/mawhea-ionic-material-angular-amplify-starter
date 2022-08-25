@@ -13,6 +13,7 @@ import {
 } from '@mawhea/ngx-core';
 import { Constants } from './Constants';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ZenObservable } from 'zen-observable-ts';
 
 const logger = new Logger(`AppComponent`);
 
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public appPages: IAppPage[] = [];
   private userSub: Subscription;
   private darkModeSessionSub: Subscription | undefined;
+  private onUpdateCognitoUserListener: ZenObservable.Subscription;
 
   constructor(
     private modalCtrl: ModalController,
@@ -52,19 +54,19 @@ export class AppComponent implements OnInit, OnDestroy {
           logger.debug('user signed in');
           const user = data.payload.data.attributes;
           this.authService.isAuthenticated = true;
-          await this.session.updateUser(user);
           const { queryParams } = this.route.snapshot;
           logger.debug(`queryParams`, queryParams);
           const { redirect = `/home` } = queryParams;
           await this.router.navigate([redirect]);
+          await this.setupUser(user);
           break;
         case 'signUp':
           logger.debug('user signed up');
           break;
         case 'signOut':
           logger.debug('user signed out');
-          // this.authService.updateAuthenticationStatus();
           this.authService.isAuthenticated = false;
+          this.onUpdateCognitoUserListenerUnsubscribe();
           await this.session.updateUser({});
           await this.router.navigate([`/login`]);
           break;
@@ -81,13 +83,20 @@ export class AppComponent implements OnInit, OnDestroy {
     AppComponentUtils.initializeTranslateServiceConfig({
       translateService: this.translate,
       translateNpmModulesService: this.translateNpmModulesService,
-      translateModules: [`ngx-core`, `ngx-amplify-auth-ui`]
+      translateModules: [`ngx-core`, `ngx-amplify-auth-ui`, `ngx-camera`]
     });
-    await this.subscribeToUser();
-    this.updateMenuOptions();
     const darkModePref = AppComponentUtils.listenForDarkModePref();
     this.subscribeToDarkModeSession(darkModePref);
-    this.subscribeToDarkModeSession(true);
+    await this.subscribeToUser();
+    this.updateMenuOptions();
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      logger.debug(`ngOnInit() currentAuthenticatedUser`, user);
+      await this.setupUser(user.attributes);
+    } catch (error) {
+      logger.debug(`ngOnInit() No authenticated user`);
+      await this.session.updateUser({});
+    }
   }
 
   ngOnDestroy() {
@@ -97,6 +106,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.darkModeSessionSub) {
       this.darkModeSessionSub.unsubscribe();
     }
+    // this.onUpdateCognitoUserListenerUnsubscribe();
   }
 
   async signOut() {
@@ -115,19 +125,19 @@ export class AppComponent implements OnInit, OnDestroy {
     this.zone.run(() => {
       this.appPages = [
         {
-          title: 'Sign In',
+          title: 'menu.signIn',
           url: '/login',
           icon: 'log-in',
           isHidden: !!this.user.sub
         },
         {
-          title: 'Home',
+          title: 'page-home.title',
           url: '/home',
           icon: 'home',
           isHidden: !this.user.sub
         }
         // {
-        //   title: 'Account Menu',
+        //   title: 'page-account-menu-title',
         //   url: '/account-menu',
         //   icon: 'settings',
         //   isHidden: !this.user.sub
@@ -138,13 +148,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private async subscribeToUser() {
     this.user = this.session.getUser();
-    console.log(`user`, this.user);
+    logger.debug(`user`, this.user);
     if (this.user.sub) {
 
     }
     this.userSub = this.session.getUserAsObservable().subscribe(async (user: any) => {
       await this.zone.run(async () => {
-        console.log(`user updated`, user);
+        logger.debug(`user updated`, user);
         this.user = user;
         this.updateMenuOptions();
       });
@@ -165,5 +175,30 @@ export class AppComponent implements OnInit, OnDestroy {
         });
       });
     });
+  }
+
+  private async setupUser(userAttributes: ICognitoUserAttributes) {
+    logger.debug(`Trace`, `setupUser()`);
+    // let user: any = userAttributes;
+    // try {
+    //   user = await this.apiService.GetCognitoUser(userAttributes.sub);
+    //   logger.debug(`setupUser() user`, user);
+    //   this.onUpdateCognitoUserListener = this.apiService.OnUpdateCognitoUserListener(user.sub).subscribe(async (evt) => {
+    //     const updatedUser = (evt as any).value.data.onUpdateCognitoUser;
+    //     logger.verbose(`OnUpdateCognitoUserListener()`, updatedUser);
+    //     await this.session.updateUser(updatedUser);
+    //   });
+    // } catch (error) {
+    //   logger.error(`setupUser() GetCognitoUser() Error`, error);
+    // }
+    // await this.session.updateUser(user);
+    await this.session.updateUser(userAttributes);
+  }
+
+  private onUpdateCognitoUserListenerUnsubscribe() {
+    if (this.onUpdateCognitoUserListener) {
+      this.onUpdateCognitoUserListener.unsubscribe();
+      this.onUpdateCognitoUserListener = null;
+    }
   }
 }
