@@ -52,7 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
       switch (data.payload.event) {
         case 'signIn':
           logger.debug('user signed in');
-          const user = data.payload.data.attributes;
+          const user = data.payload.data.attributes || {};
           this.authService.isAuthenticated = true;
           const { queryParams } = this.route.snapshot;
           logger.debug(`queryParams`, queryParams);
