@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Auth, Hub, Logger } from 'aws-amplify';
@@ -57,8 +56,10 @@ export class AppComponent implements OnInit, OnDestroy {
           const { queryParams } = this.route.snapshot;
           logger.debug(`queryParams`, queryParams);
           const { redirect = `/home` } = queryParams;
-          await this.router.navigate([redirect]);
           await this.setupUser(user);
+          await this.zone.run(async () => {
+            await this.router.navigate([redirect]);
+          });
           break;
         case 'signUp':
           logger.debug('user signed up');

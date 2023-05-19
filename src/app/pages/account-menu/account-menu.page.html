@@ -11,5 +11,113 @@
 
 <ion-content>
   <div class="centered-limited-width ion-text-center">
+    <form [formGroup]="formGroup">
+      <ion-card>
+        <ion-card-content>
+          <app-add-image
+            formControlName="imageUri"
+          ></app-add-image>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-content>
+          <ion-row>
+            <ion-col>
+              <mat-form-field class="mat-form-field-full-width">
+                <mat-label>
+                  {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.labels.email' | translate}}
+                </mat-label>
+                <input
+                  matInput
+                  formControlName="email"
+                  type="email"
+                  autocomplete="email"
+                />
+                <button
+                  *ngIf="formGroup.controls.email.value"
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear Email"
+                  type="button"
+                  color="accent"
+                  (click)="clearEmail()"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </ion-col>
+            <ion-col>
+              <app-phone-number
+                formControlName="phoneNumber"
+              >
+              </app-phone-number>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <mat-form-field class="mat-form-field-full-width">
+                <mat-label>
+                  {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.labels.givenName' | translate}}
+                </mat-label>
+                <input
+                  matInput
+                  formControlName="givenName"
+                  type="text"
+                  autocomplete="given-name"
+                  autocapitalize="words"
+                />
+              </mat-form-field>
+            </ion-col>
+            <ion-col>
+              <mat-form-field class="mat-form-field-full-width">
+                <mat-label>
+                  {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.labels.middleName' | translate}}
+                </mat-label>
+                <input
+                  matInput
+                  formControlName="middleName"
+                  type="text"
+                  autocomplete="middle-name"
+                  autocapitalize="words"
+                />
+              </mat-form-field>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <mat-form-field class="mat-form-field-full-width">
+                <mat-label>
+                  {{'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.labels.familyName' | translate}}
+                </mat-label>
+                <input
+                  matInput
+                  formControlName="familyName"
+                  type="text"
+                  autocomplete="family-name"
+                  autocapitalize="words"
+                />
+              </mat-form-field>
+            </ion-col>
+            <ion-col>
+              <app-date-of-birth
+                [label]="'@mawhea/ngx-amplify-auth-ui.app-amplify-authenticator.sign-up.labels.birthday' | translate"
+                formControlName="birthdate"
+              ></app-date-of-birth>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </form>
+    <ion-button
+      size="large"
+      expand="block"
+      class="ion-margin"
+      [disabled]="formGroup.invalid || isSaving"
+      (click)="save()"
+    >
+      {{'general.save' | translate}}
+    </ion-button>
   </div>
 </ion-content>

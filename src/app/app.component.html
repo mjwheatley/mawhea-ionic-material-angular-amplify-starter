@@ -21,16 +21,15 @@
 
           <ion-item lines="full" class="ion-margin-bottom">
             <ion-icon slot="start" name="moon"></ion-icon>
-            <ion-label>
-              {{'general.darkMode' | translate}}
-            </ion-label>
             <ion-toggle
               id="themeToggle"
-              slot="end"
+              label-placement="start"
               color="secondary"
               [(ngModel)]="isDarkMode"
               (ionChange)="onChangeDarkMode()"
-            ></ion-toggle>
+            >
+              {{'general.darkMode' | translate}}
+            </ion-toggle>
           </ion-item>
 
           <ion-list class="inbox-list ion-margin-bottom" *ngIf="user?.sub">
